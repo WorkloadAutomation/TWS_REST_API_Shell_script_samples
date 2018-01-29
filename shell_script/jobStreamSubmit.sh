@@ -25,7 +25,7 @@ fi
 
 FIRST=`curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'How-Many: 1' -d '{"filters": { "jobstreamFilter": { "jobStreamName":"'$JOBSTREAM_NAME'","workstationName": "'$WORKSTATION_NAME'"}}}' https://$TWS_HOST:31116/twsd/model/jobstream/header/query --insecure -u $TWS_USER:$PASSWORD`
 
-ID=$(echo $FIRST | cut -d'"' -f4)
+ID=$(echo "$FIRST" | cut -d'"' -f4)
 NOW=$(date --utc +%FT%T.%3NZ)
 
 echo `curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"inputArrivalTime": "'$NOW'" '"$JS_ALIAS"'}' 'https://'$TWS_HOST':31116/twsd/plan/current/jobstream/'$ID'/action/submit_jobstream' --insecure -u $TWS_USER:$PASSWORD`
